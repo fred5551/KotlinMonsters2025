@@ -1,8 +1,92 @@
 package org.example
-
+import org.example.monstre.EspeceMonstre
 import org.example.dresseur.Entraineur
+import org.example.monde.Zone
 
 var joueur = Entraineur(1,"Sacha",100)
+val especeSpringleaf = EspeceMonstre(
+    id = 1,
+    nom = "Springleaf",
+    type = "Graine",
+    baseAttaque = 60,
+    baseDefense = 9,
+    baseVitesse = 11,
+    baseAttaqueSpe = 10,
+    baseDefenseSpe = 12,
+    basePv = 14,
+    modAttaque = 34.0,
+    modDefense = 6.5,
+    modVitesse = 9.0,
+    modAttaqueSpe = 8.0,
+    modDefenseSpe = 7.0,
+    modPv = 10.0,
+    description = "Petit monstre espiègle rond comme une graine, adore le soleil.",
+    particularites = "Sa feuille sur la tête indique son humeur.",
+    caractères = "Curieux, amical, timide"
+)
+
+val especeFlamkip = EspeceMonstre(
+    id = 4,
+    nom = "Flamkip",
+    type = "Animal",
+    baseAttaque = 50,
+    baseDefense = 12,
+    baseVitesse = 8,
+    baseAttaqueSpe = 13,
+    baseDefenseSpe = 16,
+    basePv = 7,
+    modAttaque = 22.0,
+    modDefense = 10.0,
+    modVitesse = 5.5,
+    modAttaqueSpe = 9.5,
+    modDefenseSpe = 9.5,
+    modPv = 6.5,
+    description = "Petit animal entouré de flammes, déteste le froid.",
+    particularites = "Sa flamme change d’intensité selon son énergie.",
+    caractères = "Impulsif, joueur, loyal"
+)
+
+val especeAquamy = EspeceMonstre(
+    id = 7,
+    nom = "Aquamy",
+    type = "Meteo",
+    baseAttaque = 55,
+    baseDefense = 10,
+    baseVitesse = 11,
+    baseAttaqueSpe = 9,
+    baseDefenseSpe = 14,
+    basePv = 14,
+    modAttaque = 27.0,
+    modDefense = 9.0,
+    modVitesse = 10.0,
+    modAttaqueSpe = 7.5,
+    modDefenseSpe = 12.0,
+    modPv = 12.0,
+    description = "Créature vaporeuse semblable à un nuage, produit des gouttes pures.",
+    particularites = "Fait baisser la température en s’endormant.",
+    caractères = "Calme, rêveur, mystérieux"
+)
+
+val route1 = Zone(
+    id = 1,
+    nom = "Route 1",
+    expZone = 20,
+    especesMonstres = mutableListOf(especeSpringleaf, especeFlamkip)
+)
+
+val route2 = Zone(
+    id = 2,
+    nom = "Route 2",
+    expZone = 25,
+    especesMonstres = mutableListOf(especeAquamy)
+)
+
+val caverne = Zone(
+    id = 3,
+    nom = "Caverne Sombre",
+    expZone = 30,
+    especesMonstres = mutableListOf(especeFlamkip, especeAquamy)
+)
 var rival = Entraineur(2, "Regis", 200)
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -44,5 +128,26 @@ fun main() {
     //rival.afficheDetail()
     //joueur.argents+=50
     //joueur.afficheDetail()
+
+        println("=== SPRINGLEAF FRONT ===")
+        println(especeSpringleaf.afficheArt(deFace = true))
+        println("=== SPRINGLEAF BACK ===")
+        println(especeSpringleaf.afficheArt(deFace = false))
+
+        println("=== FLAMKIP FRONT ===")
+        println(especeFlamkip.afficheArt(deFace = true))
+        println("=== FLAMKIP BACK ===")
+        println(especeFlamkip.afficheArt(deFace = false))
+
+        println("=== AQUAMY FRONT ===")
+        println(especeAquamy.afficheArt(deFace = true))
+        println("=== AQUAMY BACK ===")
+        println(especeAquamy.afficheArt(deFace = false))
+
+    val monstre1 = IndividuMonstre(1, "springleaf", 1500.0, especeSpringLeaf)
+    val monstre2 = IndividuMonstre(2, "flamkip", 1500.0, especeFlamkip)
+    val monstre3 = IndividuMonstre(3, "aquamy", 1500.0, especeAquamy)
+
+
 }
 

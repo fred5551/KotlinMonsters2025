@@ -13,7 +13,7 @@ package org.example.dresseur
 
 class Entraineur (  var id: Int,
                     var nom: String,
-                    var argents: Int,) {
+                    var argents: Int) {
 
     //TODO equipeMonstre
     //TODO boiteMonstre
