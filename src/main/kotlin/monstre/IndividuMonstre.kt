@@ -4,13 +4,13 @@ import kotlin.math.pow
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
-class IndividuMonstre (val id: Int,
+ class IndividuMonstre (val id: Int,
                        var nom: String,
                        expInit: Double,
                        val espece: EspeceMonstre,
                        var entraineur: Entraineur? = null){
  var niveau: Int = 1
-var attaque: Int
+ var attaque: Int
 var defense: Int
 var vitesse: Int
 var attaqueSpe: Int
