@@ -17,18 +17,5 @@ interface Utilisable {/**
  */
 fun utiliser(cible: IndividuMonstre): Boolean
 
-    class Potion(id: Int, nom: String, description: String, val soin: Int)
-        : Item(id, nom, description), Utilisable {
-
-        override fun utiliser(cible: IndividuMonstre): Boolean {
-            if (cible.pv == cible.pvMax) {
-                println("${cible.nom} est déjà en pleine forme !")
-                return false
-            }
-            cible.pv += soin
-            println("${cible.nom} a récupéré $soin PV ! (${cible.pv}/${cible.pvMax})")
-            return true
-        }
-    }
 
 }

@@ -43,8 +43,10 @@ class EspeceMonstre(
     val modPv: Double,
     val description: String = "",
     val particularites: String = "",
-    val caractères: String = ""
-) {
+    val caractères: String = "",
+    val elements: MutableList<Element> = mutableListOf(),
+
+    ) {
     /**
      * Affiche la représentation artistique ASCII du monstre.
      *
@@ -64,6 +66,7 @@ class EspeceMonstre(
         } catch (e: Exception) {
             "Erreur : ASCII art non trouvé pour ${this.nom} ($chemin)"
         }
+
     }
 }
 

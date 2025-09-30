@@ -1,5 +1,9 @@
 package org.example.monde
 import org.example.monstre.EspeceMonstre
+import org.example.monstre.IndividuMonstre
+import org.example.dresseur.Entraineur
+import org.example.jeu.CombatMonstre
+import kotlin.random.Random
 /**
  * Représente une zone dans le monde du jeu.
  * Une zone peut être une route, une caverne, une mer, etc.
@@ -20,12 +24,33 @@ class Zone (val id: Int,
             var zoneSuivante: Zone? = null,
             var zonePrecedente: Zone? = null) {
     // TODO: Implémenter la méthode genereMonstre() qui génère un monstre aléatoire dans la zone
-    fun genereMonstre() {
-        // À faire
+    fun genereMonstre(): IndividuMonstre {
+        if (especesMonstres.isEmpty()) {
+            throw IllegalStateException("Aucune espèce disponible dans la zone $nom")
+    }
+        val especeChoisie = especesMonstres.random()
+        val variation = Random.nextDouble(0.8, 1.2) // +/- 20%
+        val expInit = expZone * variation
+
+        return IndividuMonstre(
+            id = Random.nextInt(1000, 9999),
+            nom = especeChoisie.nom,
+            expInit = expInit,
+            espece = especeChoisie,
+            entraineur = null
+        )
     }
 
     // TODO: Implémenter la méthode rencontreMonstre() qui gère la rencontre avec un monstre
-    fun rencontreMonstre() {
-        // À faire
+    fun rencontreMonstre(joueur: Entraineur) {
+        val monstreSauvage = genereMonstre()
+        val premierMonstre = joueur.equipeMonstre.firstOrNull { it.pv > 0 }
+
+        if (premierMonstre == null) {
+            println("Tous vos monstres sont K.O. Vous ne pouvez pas combattre.")
+            return
+        }
+        val combat = CombatMonstre(joueur, premierMonstre, monstreSauvage)
+        combat.lanceCombat()
     }
 }

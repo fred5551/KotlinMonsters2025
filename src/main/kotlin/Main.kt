@@ -4,6 +4,11 @@ import org.example.dresseur.Entraineur
 import org.example.monde.Zone
 import org.example.monstre.IndividuMonstre
 import org.example.item.Badge
+import org.example.item.MonsterKube
+import org.example.jeu.CombatMonstre
+import org.example.jeu.Partie
+import org.example.monstre.Element
+import kotlin.collections.mutableListOf
 
 
 var joueur = Entraineur(1,"Sacha",100)
@@ -25,7 +30,11 @@ val especeSpringleaf = EspeceMonstre(
     modPv = 10.0,
     description = "Petit monstre espiègle rond comme une graine, adore le soleil.",
     particularites = "Sa feuille sur la tête indique son humeur.",
-    caractères = "Curieux, amical, timide"
+    caractères = "Curieux, amical, timide",
+
+
+
+
 )
 
 val especeFlamkip = EspeceMonstre(
@@ -46,8 +55,10 @@ val especeFlamkip = EspeceMonstre(
     modPv = 6.5,
     description = "Petit animal entouré de flammes, déteste le froid.",
     particularites = "Sa flamme change d’intensité selon son énergie.",
-    caractères = "Impulsif, joueur, loyal"
-)
+    caractères = "Impulsif, joueur, loyal",
+
+
+    )
 
 val especeAquamy = EspeceMonstre(
     id = 7,
@@ -67,7 +78,7 @@ val especeAquamy = EspeceMonstre(
     modPv = 12.0,
     description = "Créature vaporeuse semblable à un nuage, produit des gouttes pures.",
     particularites = "Fait baisser la température en s’endormant.",
-    caractères = "Calme, rêveur, mystérieux"
+    caractères = "Calme, rêveur, mystérieux",
 )
 
 val route1 = Zone(
@@ -120,6 +131,16 @@ fun changeCouleur(texte: String, couleur: String): String {
 
     return if (codeCouleur == "") texte else "$codeCouleur$texte$reset"
 }
+
+// Éléments principaux
+val feu = Element(1, "Feu")
+val plante = Element(2, "Plante")
+val eau = Element(3, "Eau")
+val insecte = Element(4, "Insecte")
+val roche = Element(5, "Roche")
+val normal = Element(6, "Normal")
+
+
 
 fun main() {
     //println(changeCouleur("Hello","rouge"))
@@ -194,17 +215,133 @@ fun main() {
         description = "Badge gagné lorsque le joueur atteint l'arène de pierre.",
         champion = championPierre
     )
+    val kubeBasique = MonsterKube(10, "MonsterKube", "Une sphère pour capturer les monstres", 30.0)
+    val monstre = IndividuMonstre(
+        id = 4,
+        nom = "Flamkip",
+        expInit = 1500.0,
+        espece = especeFlamkip,  // ⚡ choisis l’espèce qui correspond
+        entraineur = null
+    )
+    kubeBasique.utiliser(monstre)
 
-    // Test d'affichage
-    badgeRoche.afficheDetailBadge()
+    // --- Création d'espèces de monstres ---
+    val flamkip = EspeceMonstre(
+        id = 4,
+        nom = "Flamkip",
+        type = "Animal",
+        baseAttaque = 50,
+        baseDefense = 12,
+        baseVitesse = 8,
+        baseAttaqueSpe = 13,
+        baseDefenseSpe = 16,
+        basePv = 300,
+        modAttaque = 22.0,
+        modDefense = 10.0,
+        modVitesse = 5.5,
+        modAttaqueSpe = 9.5,
+        modDefenseSpe = 9.5,
+        modPv = 6.5,
+        description = "Petit animal entouré de flammes, déteste le froid.",
+        particularites = "Sa flamme change d’intensité selon son énergie.",
+        caractères = "Impulsif, joueur, loyal",
+    )
 
-    fun main() {
-        val championPierre = Entraineur(1, "Pierre", 1000)
-        val monstre = IndividuMonstre(1, "Rocabot", 0.0, EspeceMonstre(...)) // à adapter avec ton constructeur EspeceMonstre
+    val aquamy = EspeceMonstre(
+        id = 7,
+        nom = "Aquamy",
+        type = "Meteo",
+        baseAttaque = 55,
+        baseDefense = 10,
+        baseVitesse = 11,
+        baseAttaqueSpe = 9,
+        baseDefenseSpe = 14,
+        basePv = 14,
+        modAttaque = 27.0,
+        modDefense = 9.0,
+        modVitesse = 10.0,
+        modAttaqueSpe = 7.5,
+        modDefenseSpe = 12.0,
+        modPv = 12.0,
+        description = "Créature vaporeuse semblable à un nuage, produit des gouttes pures.",
+        particularites = "Fait baisser la température en s’endormant.",
+        caractères = "Calme, rêveur, mystérieux",
+    )
 
-        val potion = Potion(1, "Potion", "Restaure 20 PV", 20)
-        potion.utiliser(monstre)
+    // --- Création des individus ---
+    val monstreJoueur = IndividuMonstre(
+        id = 101,
+        nom = "FLAM",
+        expInit = 0.0,
+        espece = flamkip
+    )
+
+    val monstreSauvage = IndividuMonstre(
+        id = 201,
+        nom = "AQUA",
+        expInit = 0.0,
+        espece = aquamy
+    )
+
+    // --- Création du joueur ---
+    val joueur = Entraineur(
+        id = 1,
+        nom = "Sacha",
+        argents = 500
+    )
+    joueur.equipeMonstre.add(monstreJoueur) // Ajout de FLAM dans l’équipe
+
+    // --- Lancer le combat ---
+    val combat = CombatMonstre(joueur, monstreJoueur, monstreSauvage)
+    combat.lanceCombat()
+
+    fun nouvellePartie(): Partie {
+        println("Bienvenue dans le monde des monstres !")
+        println("Quel est ton nom ?")
+        val nomChoisi = readln()
+        joueur.nom = nomChoisi
+
+        println("Enchanté $nomChoisi ! Ton aventure commence maintenant...")
+
+        return Partie(4, rival, route1) // à adapter si ton constructeur diffère
     }
 
+    route1.zoneSuivante = route2
+    route2.zonePrecedente = route1
+    joueur.sacAItems.add(kubeBasique)
+
+    val partie = nouvellePartie()
+    partie.choixStarter()
+    partie.jouer()
+
+    // 🔥 Feu
+    feu.forces.addAll(listOf(plante, insecte))
+    feu.faiblesses.addAll(listOf(eau, roche, feu))
+
+// 🌱 Plante
+    plante.forces.addAll(listOf(eau, roche))
+    plante.faiblesses.addAll(listOf(feu, insecte))
+
+// 💧 Eau
+    eau.forces.addAll(listOf(feu, roche))
+    eau.faiblesses.addAll(listOf(plante))
+
+// 🐞 Insecte
+    insecte.forces.addAll(listOf(plante))
+    insecte.faiblesses.addAll(listOf(feu, roche))
+
+// 🪨 Roche
+    roche.forces.addAll(listOf(feu, insecte))
+    roche.faiblesses.addAll(listOf(eau, plante))
+
+// ⚪ Normal
+    normal.faiblesses.add(roche)
+
+    especeSpringleaf.elements.add(plante)
+    especeFlamkip.elements.add(feu)
+    especeAquamy.elements.add(eau)
+// tu pourras ajouter d’autres associations selon tes espèces
+
 }
+
 

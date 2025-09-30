@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:2.2.20")
 }
 
 tasks.test {
@@ -19,3 +20,4 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+

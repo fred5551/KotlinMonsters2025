@@ -2,6 +2,7 @@ package org.example.monstre
 import org.example.dresseur.Entraineur
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import org.example.monstre.PalierEvolution
 import kotlin.random.Random
 
  class IndividuMonstre (val id: Int,
@@ -66,6 +67,10 @@ fun palierExp(niveau: Int): Double {
 fun levelUp() {
     niveau++
     println("Le monstre $nom est maintenant niveau $niveau !")
+    if (espece.PalierEvolution != null){
+
+
+    }
 
     fun calcStat(baseStat: Int, modCarac: Double, potentiel: Double, randomRange: IntRange): Int {
         val statBonus = (modCarac * potentiel).roundToInt() + Random.nextInt(randomRange.first, randomRange.last + 1)
@@ -145,6 +150,10 @@ fun afficheDetail() {
         val artLine = if (i < artLines.size) artLines[i] else ""
         val detailLine = if (i < details.size) details[i] else ""
         println(artLine.padEnd(maxArtWidth + 4) + detailLine)
+    }
+    fun évoluer(){
+
+
     }
 }
 }
