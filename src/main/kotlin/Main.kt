@@ -8,6 +8,7 @@ import org.example.item.MonsterKube
 import org.example.jeu.CombatMonstre
 import org.example.jeu.Partie
 import org.example.monstre.Element
+import org.example.monstre.Technique
 import kotlin.collections.mutableListOf
 
 
@@ -140,7 +141,31 @@ val insecte = Element(4, "Insecte")
 val roche = Element(5, "Roche")
 val normal = Element(6, "Normal")
 
+// ⚪ Normal
+val charge = Technique(
+    id = 1,
+    nom = "Charge",
+    precision = 95.0,
+    multiplicateurPuissance = 1.0,
+    estSpecial = false,
+    estBuff = false,
+    estDebuff = false,
+    faireDegats = true,
+    elementTechnique = normal
+)
 
+// 🔥 Feu
+val flammeche = Technique(
+    id = 2,
+    nom = "Flammèche",
+    precision = 90.0,
+    multiplicateurPuissance = 1.2,
+    estSpecial = true,
+    estBuff = false,
+    estDebuff = false,
+    faireDegats = true,
+    elementTechnique = feu
+)
 
 fun main() {
     //println(changeCouleur("Hello","rouge"))
@@ -341,6 +366,8 @@ fun main() {
     especeFlamkip.elements.add(feu)
     especeAquamy.elements.add(eau)
 // tu pourras ajouter d’autres associations selon tes espèces
+
+
 
 }
 

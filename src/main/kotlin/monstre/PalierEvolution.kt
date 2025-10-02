@@ -7,13 +7,8 @@ class PalierEvolution(
 
 ) {
 
-    fun peutEvoluer(individuMonstre : IndividuMonstre): Boolean{
-        if (individuMonstre.niveau >= 15 ) {
-            return true
-        }
-        else {
-            return false
-        }
+    fun peutEvoluer(individu: IndividuMonstre): Boolean {
+        return individu.niveau >= niveauRequis
     }
 
 }

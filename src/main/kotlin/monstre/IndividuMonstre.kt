@@ -1,23 +1,27 @@
 package org.example.monstre
 import org.example.dresseur.Entraineur
+import org.example.especeFlamkip
 import kotlin.math.pow
 import kotlin.math.roundToInt
 import org.example.monstre.PalierEvolution
 import kotlin.random.Random
 
- class IndividuMonstre (val id: Int,
+
+
+class IndividuMonstre (val id: Int,
                        var nom: String,
                        expInit: Double,
-                       val espece: EspeceMonstre,
+                       var espece: EspeceMonstre,
                        var entraineur: Entraineur? = null){
- var niveau: Int = 1
- var attaque: Int
-var defense: Int
-var vitesse: Int
-var attaqueSpe: Int
-var defenseSpe: Int
-var pvMax: Int
-val potentiel: Double = Random.nextDouble(0.5, 2.0)
+    var niveau: Int = 1
+    var attaque: Int
+    var defense: Int
+    var vitesse: Int
+    var attaqueSpe: Int
+    var defenseSpe: Int
+    var pvMax: Int
+    val potentiel: Double = Random.nextDouble(0.5, 2.0)
+    val techniques: MutableList<Technique> = mutableListOf()
 
 // exp avec getter/setter + level up dans setter
 var exp: Double = 0.0
@@ -67,10 +71,14 @@ fun palierExp(niveau: Int): Double {
 fun levelUp() {
     niveau++
     println("Le monstre $nom est maintenant niveau $niveau !")
-    if (espece.PalierEvolution != null){
-
-
+    for (palier in espece.paliersTechniques) {
+        if (palier.peutApprendre(this)) {
+            apprendreTechnique(palier.technique)
+        }
     }
+}
+
+
 
     fun calcStat(baseStat: Int, modCarac: Double, potentiel: Double, randomRange: IntRange): Int {
         val statBonus = (modCarac * potentiel).roundToInt() + Random.nextInt(randomRange.first, randomRange.last + 1)
@@ -151,9 +159,12 @@ fun afficheDetail() {
         val detailLine = if (i < details.size) details[i] else ""
         println(artLine.padEnd(maxArtWidth + 4) + detailLine)
     }
-    fun évoluer(){
 
-
+    fun evoluer() {
+        espece.palierEvolution?.let { palier ->
+            println("$nom évolue en ${palier.evolution.nom} !")
+            espece = palier.evolution
+        }
     }
 }
 }
