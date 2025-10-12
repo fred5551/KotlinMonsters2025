@@ -11,8 +11,9 @@ import org.example.monstre.Element
 import org.example.monstre.Technique
 import kotlin.collections.mutableListOf
 
-
+// Définition du joueur
 var joueur = Entraineur(1,"Sacha",100)
+// Définition des espèces de Monstre disponibles dans le jeu, chaque espèce de monstre contient des statistiques de base et ses particularités
 val especeSpringleaf = EspeceMonstre(
     id = 1,
     nom = "Springleaf",
@@ -365,7 +366,6 @@ fun main() {
     especeSpringleaf.elements.add(plante)
     especeFlamkip.elements.add(feu)
     especeAquamy.elements.add(eau)
-// tu pourras ajouter d’autres associations selon tes espèces
 
 
 
